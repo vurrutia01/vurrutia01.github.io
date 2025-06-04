@@ -17,12 +17,12 @@
                 <span></span>
             </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#" onclick="showApp('multiplier')">Number Multiplier</a></li>
+                <li><a href="#" onclick="showApp('multiplier')">Temperature Converter</a></li>
                 <li><a href="#" onclick="showApp('magic8ball')">Magic 8 Ball</a></li>
-                <li><a href="#" onclick="showApp('tasklist')">Task List</a></li>
+                <li><a href="#" onclick="showApp('tasklist')">Wellness Task Tracker</a></li>
                 <li><a href="#" onclick="showApp('timer')">Timer</a></li>
                 <li><a href="#" onclick="showApp('nato')">NATO Converter</a></li>
-                <li><a href="#" onclick="showApp('calculator')">Calculator</a></li>
+                <li><a href="#" onclick="showApp('calculator')">Scientific Calculator</a></li>
                 <li><a href="#" onclick="showApp('contacts')">Contacts</a></li>
             </ul>
         </div>
@@ -32,30 +32,32 @@
     <div class="main-content">
         <!-- Number Multiplier App -->
         <div id="multiplier-app" class="app-section active">
-            <div class="container">
-                <h1>Number Multiplier</h1>
-                <div class="converter-section">
-                    <p>Enter a number and select an operation to multiply it.</p>
-                    
-                    <div class="input-group">
-                        <label for="inputNumber">Enter your number:</label>
-                        <input type="number" id="inputNumber" placeholder="Enter a number">
-                        <select id="operation" onchange="displaySelection()">
-                            <option value="double">double</option>
-                            <option value="triple">triple</option>
-                        </select>
-                    </div>
-                    
-                    <div id="selection-display" class="display-area">
-                        double
-                    </div>
-                    
-                    <div class="button-group">
-                        <button onclick="calculateResult()">Calculate</button>
-                        <button onclick="clearResult()" class="clear">Clear</button>
-                    </div>
-                    
-                    <div id="calculation-result" class="display-area result">
+  <div class="container">
+    <h1>Temperature Converter</h1>
+
+    <div class="converter-section">
+      <label for="temperature">Enter Temperature:</label>
+      <input type="number" id="temperature" placeholder="e.g., 32">
+
+      <label for="conversion-type">Conversion Type:</label>
+      <select id="conversion-type" onchange="updateFormula()">
+        <option value="fToC">Fahrenheit to Celsius</option>
+        <option value="cToF">Celsius to Fahrenheit</option>
+      </select>
+
+      <div id="formula" class="display-area">Formula: (F - 32) × 5/9 = C</div>
+
+      <div class="button-group">
+        <button onclick="convertTemperature()">Convert</button>
+        <button onclick="clearConverter()" class="clear">Clear</button>
+      </div>
+
+      <div id="conversion-result" class="display-area result"></div>
+      <div id="assessment" class="display-area result"></div>
+    </div>
+  </div>
+</div>
+
                         <!-- Calculation result will be displayed here -->
                     </div>
                 </div>
@@ -92,29 +94,35 @@
                     <p>Use the "Random Task" button for health and wellness suggestions to take care of yourself throughout your day!</p>
                 </div>
                 
-                <div class="input-container">
-                    <div class="input-group">
-                        <input type="text" id="task-input" placeholder="Enter a wellness task...">
-                        <select id="priority-input">
-                            <option value="1">Priority 1</option>
-                            <option value="2">Priority 2</option>
-                            <option value="3" selected>Priority 3</option>
-                            <option value="4">Priority 4</option>
-                            <option value="5">Priority 5</option>
-                        </select>
-                    </div>
-                    <div class="button-group">
-                        <button id="add-button" onclick="addTask()">Add Task</button>
-                        <button id="clear-input-button" onclick="clearInput()">Clear Input</button>
-                        <button id="random-task-button" onclick="addRandomTask()">Random Task</button>
-                    </div>
-                </div>
-                <div class="tasks-container">
-                    <h2>Your Tasks <button id="clear-tasks-button" onclick="clearTasks()">Clear All Tasks</button></h2>
-                    <ul id="task-list" class="task-list"></ul>
-                </div>
-            </div>
-        </div>
+                <div class="input-group">
+  <label for="task-input">Task:</label>
+  <input type="text" id="task-input" placeholder="Enter a wellness task...">
+
+  <label for="date-input">Due Date (MM/DD):</label>
+  <input type="text" id="date-input" placeholder="e.g., 06/05">
+
+  <label for="time-input">Due Time (HH:MM):</label>
+  <input type="text" id="time-input" placeholder="e.g., 14:30 (24-hr)">
+
+  <label for="priority-input">Manual Priority (optional):</label>
+  <select id="priority-input">
+    <option value="1">Priority 1</option>
+    <option value="2">Priority 2</option>
+    <option value="3" selected>Priority 3</option>
+    <option value="4">Priority 4</option>
+    <option value="5">Priority 5</option>
+  </select>
+</div>
+</select>
+</div> 
+<div class="button-group">
+  <button id="add-button" onclick="addTask()">Add Task</button>
+  <button id="clear-input-button" onclick="clearInput()">Clear Input</button>
+  <button id="random-task-button" onclick="addRandomTask()">Random Task</button>
+</div>
+
+</div> 
+
 
         <!-- Countdown Timer App -->
         <div id="timer-app" class="app-section">
@@ -173,73 +181,80 @@
                         <input type="text" id="display" readonly>
                     </div>
                     <div class="calculator-keys">
-                        <!-- First row -->
-                        <div class="calculator-row">
-                            <button class="btn-function" onclick="clearMemory()">MC</button>
-                            <button class="btn-function" onclick="recallMemory()">MR</button>
-                            <button class="btn-function" onclick="addToMemory()">M+</button>
-                            <button class="btn-function" onclick="subtractFromMemory()">M-</button>
-                            <button class="btn-function" onclick="clearAll()">C</button>
-                        </div>
-                        <!-- Second row -->
-                        <div class="calculator-row">
-                            <button class="btn-function" onclick="">x<sup>y</sup></button>
-                            <button class="btn-function" onclick="">√</button>
-                            <button class="btn-function" onclick="">|x|</button>
-                            <button class="btn-function" onclick="">π</button>
-                            <button class="btn-function" onclick="">e</button>
-                        </div>
-                        <!-- Third row -->
-                        <div class="calculator-row">
-                            <button class="btn-function" onclick="">sin</button>
-                            <button class="btn-function" onclick="">cos</button>
-                            <button class="btn-function" onclick="">tan</button>
-                            <button class="btn-function" onclick="">log</button>
-                            <button class="btn-function" onclick="">exp</button>
-                        </div>
-                        <!-- Fourth row -->
-                        <div class="calculator-row">
-                            <button class="btn-function" onclick="">asin</button>
-                            <button class="btn-function" onclick="">acos</button>
-                            <button class="btn-function" onclick="">atan</button>
-                            <button class="btn-function" onclick="">ln2</button>
-                            <button class="btn-function" onclick="">ln10</button>
-                        </div>
-                        <!-- Fifth row -->
-                        <div class="calculator-row">
-                            <button class="btn-number" onclick="appendToDisplay('7')">7</button>
-                            <button class="btn-number" onclick="appendToDisplay('8')">8</button>
-                            <button class="btn-number" onclick="appendToDisplay('9')">9</button>
-                            <button class="btn-operator" onclick="appendToDisplay('/')">/</button>
-                            <button class="btn-function" onclick="">round</button>
-                        </div>
-                        <!-- Sixth row -->
-                        <div class="calculator-row">
-                            <button class="btn-number" onclick="appendToDisplay('4')">4</button>
-                            <button class="btn-number" onclick="appendToDisplay('5')">5</button>
-                            <button class="btn-number" onclick="appendToDisplay('6')">6</button>
-                            <button class="btn-operator" onclick="appendToDisplay('*')">×</button>
-                            <button class="btn-function" onclick="">ceil</button>
-                        </div>
-                        <!-- Seventh row -->
-                        <div class="calculator-row">
-                            <button class="btn-number" onclick="appendToDisplay('1')">1</button>
-                            <button class="btn-number" onclick="appendToDisplay('2')">2</button>
-                            <button class="btn-number" onclick="appendToDisplay('3')">3</button>
-                            <button class="btn-operator" onclick="appendToDisplay('-')">-</button>
-                            <button class="btn-function" onclick="">floor</button>
-                        </div>
-                        <!-- Eighth row -->
-                        <div class="calculator-row">
-                            <button class="btn-number" onclick="appendToDisplay('0')">0</button>
-                            <button class="btn-number" onclick="appendToDisplay('.')">.</button>
-                            <button class="btn-equals" onclick="calculate()">=</button>
-                            <button class="btn-operator" onclick="appendToDisplay('+')">+</button>
-                            <button class="btn-function" onclick="deleteLast()">⌫</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                      <div class="calculator-keys">
+  <!-- Row 1 -->
+  <div class="calculator-row">
+    <button class="btn-function" onclick="clearMemory()">MC</button>
+    <button class="btn-function" onclick="recallMemory()">MR</button>
+    <button class="btn-function" onclick="addToMemory()">M+</button>
+    <button class="btn-function" onclick="subtractFromMemory()">M-</button>
+    <button class="btn-function" onclick="clearAll()">C</button>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="calculator-row">
+    <button class="btn-function" onclick="insertMathFunction('pow')">x<sup>y</sup></button>
+    <button class="btn-function" onclick="insertMathFunction('sqrt')">√</button>
+    <button class="btn-function" onclick="insertMathFunction('abs')">|x|</button>
+    <button class="btn-function" onclick="insertMathConstant('Math.PI')">π</button>
+    <button class="btn-function" onclick="insertMathConstant('Math.E')">e</button>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="calculator-row">
+    <button class="btn-function" onclick="insertMathFunction('sin')">sin</button>
+    <button class="btn-function" onclick="insertMathFunction('cos')">cos</button>
+    <button class="btn-function" onclick="insertMathFunction('tan')">tan</button>
+    <button class="btn-function" onclick="insertMathFunction('log')">log</button>
+    <button class="btn-function" onclick="insertMathFunction('exp')">exp</button>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="calculator-row">
+    <button class="btn-function" onclick="insertMathFunction('asin')">asin</button>
+    <button class="btn-function" onclick="insertMathFunction('acos')">acos</button>
+    <button class="btn-function" onclick="insertMathFunction('atan')">atan</button>
+    <button class="btn-function" onclick="insertMathConstant('Math.LN2')">ln2</button>
+    <button class="btn-function" onclick="insertMathConstant('Math.LN10')">ln10</button>
+  </div>
+
+  <!-- Row 5 -->
+  <div class="calculator-row">
+    <button class="btn-number" onclick="appendToDisplay('7')">7</button>
+    <button class="btn-number" onclick="appendToDisplay('8')">8</button>
+    <button class="btn-number" onclick="appendToDisplay('9')">9</button>
+    <button class="btn-operator" onclick="appendToDisplay('/')">/</button>
+    <button class="btn-function" onclick="insertMathFunction('round')">round</button>
+  </div>
+
+  <!-- Row 6 -->
+  <div class="calculator-row">
+    <button class="btn-number" onclick="appendToDisplay('4')">4</button>
+    <button class="btn-number" onclick="appendToDisplay('5')">5</button>
+    <button class="btn-number" onclick="appendToDisplay('6')">6</button>
+    <button class="btn-operator" onclick="appendToDisplay('*')">×</button>
+    <button class="btn-function" onclick="insertMathFunction('ceil')">ceil</button>
+  </div>
+
+  <!-- Row 7 -->
+  <div class="calculator-row">
+    <button class="btn-number" onclick="appendToDisplay('1')">1</button>
+    <button class="btn-number" onclick="appendToDisplay('2')">2</button>
+    <button class="btn-number" onclick="appendToDisplay('3')">3</button>
+    <button class="btn-operator" onclick="appendToDisplay('-')">-</button>
+    <button class="btn-function" onclick="insertMathFunction('floor')">floor</button>
+  </div>
+
+  <!-- Row 8 -->
+  <div class="calculator-row">
+    <button class="btn-number" onclick="appendToDisplay('0')">0</button>
+    <button class="btn-number" onclick="appendToDisplay('.')">.</button>
+    <button class="btn-equals" onclick="calculate()">=</button>
+    <button class="btn-operator" onclick="appendToDisplay('+')">+</button>
+    <button class="btn-function" onclick="deleteLast()">⌫</button>
+  </div>
+</div>
+
         </div>
 
         <!-- Contacts App -->

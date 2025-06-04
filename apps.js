@@ -18,8 +18,7 @@ function showApp(appName) {
     navMenu.classList.remove('active');
 }
 
-// Temperature Converter Functions
-/* Violeta Urrutia-Breton */
+// Temperature Converter Functions (Project 1)
 function updateFormula() {
     const conversionType = document.getElementById("conversion-type").value;
     const formulaElement = document.getElementById("formula");
@@ -690,7 +689,8 @@ function clearNATOInputs() {
     document.getElementById("natoResult").textContent = "";
 }
 
-// Calculator Functions
+// Calculator Functions (Project 3) 
+
 // Global Variables
 let memory = 0;
 let currentInput = "0";
